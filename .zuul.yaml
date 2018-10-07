@@ -1,0 +1,50 @@
+- pipeline:
+    name: check
+    post-review: true
+    manager: independent
+    trigger:
+      github_conn:
+        - event: pull_request
+          action:
+            - opened
+            - changed
+        - event: pull_request
+          action:
+            - comment
+          comment:
+            - '^recheck .*$'
+    success:
+      github_conn:
+        comment: true
+        status: success
+    failure:
+      github_conn:
+        comment: true
+        status: failure
+    merge-failure:
+      github_conn:
+        comment: true
+        status: failure
+    start:
+      github_conn:
+        comment: true
+        status: pending
+    disabled:
+      github_conn:
+        comment: true
+
+- project:
+    name: jluk-codi-org/zuul-config-project
+    check:
+      jobs:
+        - noop
+
+- job:
+    name: base
+    timeout: 120
+    parent: null
+    pre-run: base-playbook.yaml
+    nodeset:
+      nodes:
+        - name: builder
+          label: centos7-static
