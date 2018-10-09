@@ -12,7 +12,7 @@
           action:
             - comment
           comment:
-            - '^recheck .*$'
+            - '^recheck( .*)?$'
     success:
       github_conn:
         comment: true
