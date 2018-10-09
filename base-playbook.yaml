@@ -14,3 +14,4 @@
       synchronize:
         dest: "."
         src: "{{ zuul.executor.src_root }}"
+      no_log: true
