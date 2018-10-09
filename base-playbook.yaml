@@ -10,3 +10,8 @@
         data:
           zuul:
             log_url: http://zuul-webinar.codilime.com/logs/{{ zuul.build }}
+
+- name: Synchronize src repos to workspace directory.
+  synchronize:
+    dest: "."
+    src: "{{ zuul.executor.src_root }}"
